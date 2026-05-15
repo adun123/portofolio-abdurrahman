@@ -1,0 +1,31 @@
+ABDURRAHMAN
+Fullstack Developer - Jakarta, Indonesia
+
+Email: abdurrahmanaikon@gmail.com
+LinkedIn: https://www.linkedin.com/in/abdurrahmanaikon
+Instagram: https://www.instagram.com/abdurrahmanaikon
+
+Summary
+Fullstack developer focused on building practical web products, clean interfaces, reliable backend systems, and automation tools.
+
+Core Skills
+- React
+- Next.js
+- TypeScript
+- PHP
+- Laravel
+- Node.js
+- Express
+- PostgreSQL
+- Prisma
+- Docker
+- Git
+- CI/CD
+
+Selected Projects
+- Pegadaian AI App: AI and FinTech workflow for collateral assessment and loan simulations.
+- BYD Content Marketing AI: Creative automation platform for campaign content generation.
+- Orion CMS: Headless editorial platform with access control and live preview.
+
+Note
+Replace this temporary CV file with the final PDF CV when it is ready.
