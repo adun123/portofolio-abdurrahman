@@ -417,6 +417,11 @@
   background: rgba(246, 243, 232, 0.055);
 }
 
+.downloadPending {
+  opacity: 0.82;
+  pointer-events: none;
+}
+
 .btnPrimary:hover,
 .btnSecondary:hover,
 .mailLink:hover,
@@ -483,7 +488,7 @@
 }
 
 .photoFrame::before {
-  content: "PROFILE / PHOTO SLOT";
+  content: "";
   position: absolute;
   top: var(--space-3);
   left: var(--space-3);

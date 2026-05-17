@@ -21,6 +21,8 @@ const profileImage = {
   alt: "Portrait of Abdurrahman",
 };
 
+const cvPath = "/Abdurrahman-CV.pdf";
+
 const projects = [
   {
     number: "01",
@@ -176,10 +178,15 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [photoFailed, setPhotoFailed] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setMounted(true));
     const timer = window.setTimeout(() => setLoading(false), 950);
-    return () => window.clearTimeout(timer);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(timer);
+    };
   }, []);
 
   useEffect(() => {
@@ -297,7 +304,7 @@ export default function Home() {
           </motion.p>
           <motion.div className={styles.heroActions} variants={reveal} transition={{ duration: 0.72 }}>
             <a href="#projects" className={styles.btnPrimary}>View Projects</a>
-            <a href="/abdurrahman-cv.txt" className={styles.btnSecondary} download>Download CV</a>
+            <DownloadCvLink mounted={mounted} className={styles.btnSecondary} />
           </motion.div>
         </motion.div>
 
@@ -483,7 +490,7 @@ export default function Home() {
             <a href="mailto:abdurrahmanaikon@gmail.com" className={styles.mailLink} aria-label="Email Abdurrahman at abdurrahmanaikon@gmail.com">
               abdurrahmanaikon@gmail.com
             </a>
-            <a href="/abdurrahman-cv.txt" className={styles.downloadLink} download>Download CV</a>
+            <DownloadCvLink mounted={mounted} className={styles.downloadLink} />
             <a href="https://www.linkedin.com/in/abdurrahman-8719092b1" className={styles.downloadLink} target="_blank" rel="noreferrer noopener">LinkedIn</a>
           </div>
           <div className={styles.socials} aria-label="Additional contact details">
@@ -507,6 +514,22 @@ function SectionRail({ number, label }: { number: string; label: string }) {
       <span className={styles.sectionNumber}>{number}</span>
       <span className={styles.sectionLabel}>{label}</span>
     </motion.div>
+  );
+}
+
+function DownloadCvLink({ mounted, className }: { mounted: boolean; className: string }) {
+  if (!mounted) {
+    return (
+      <span className={`${className} ${styles.downloadPending}`} aria-hidden="true">
+        Download CV
+      </span>
+    );
+  }
+
+  return (
+    <a href={cvPath} className={className} download>
+      Download CV
+    </a>
   );
 }
 
