@@ -1,31 +1,39 @@
 ABDURRAHMAN
-Fullstack Developer - Jakarta, Indonesia
+AI-Powered Full Stack Engineer | Informatics Student at Telkom University
+Jakarta, Indonesia
 
 Email: abdurrahmanaikon@gmail.com
-LinkedIn: https://www.linkedin.com/in/abdurrahmanaikon
-Instagram: https://www.instagram.com/abdurrahmanaikon
+Phone: +62 81398 515784
+LinkedIn: https://www.linkedin.com/in/abdurrahman-8719092b1
+GitHub: available on request
 
-Summary
-Fullstack developer focused on building practical web products, clean interfaces, reliable backend systems, and automation tools.
+Professional Summary
+AI-Powered Full Stack Engineer focused on AI workflows, OCR systems, enterprise web apps, document intelligence platforms, and LLM integrations. I build practical product interfaces, backend flows, and AI-assisted systems for teams moving ideas from prototype to reliable workflow.
 
-Core Skills
-- React
-- Next.js
-- TypeScript
-- PHP
-- Laravel
-- Node.js
-- Express
-- PostgreSQL
-- Prisma
-- Docker
-- Git
-- CI/CD
+Education
+- Telkom University: Informatics, Aug 2025-now.
+- Diploma in Information Systems: GPA 3.81, Aug 2022-Jul 2025.
 
-Selected Projects
-- Pegadaian AI App: AI and FinTech workflow for collateral assessment and loan simulations.
-- BYD Content Marketing AI: Creative automation platform for campaign content generation.
-- Orion CMS: Headless editorial platform with access control and live preview.
+Experience
+- PT Solusi Data Industri / Dataisolv: Full Stack Engineer Intern, Dec 2025-Present. Building product interfaces, backend flows, and AI-assisted web systems for enterprise workflow use cases.
+- XLSMART: Agentic AI Co-Trainer, Apr 2026-May 2026. Supporting agentic AI learning delivery, participant guidance, and practical AI workflow enablement.
+- Teaching Assistant Roles: Academic learning support, 2024-2025. Assisting students with technical learning, structured practice, and classroom support across computing topics.
+- STAS-RG: Research Internship, Sep 2024-Jun 2025. Contributing to research-group work while sharpening applied systems thinking and technical documentation habits.
 
-Note
-Replace this temporary CV file with the final PDF CV when it is ready.
+Featured Projects
+- BTN AI OCR Workflow Platform, Apr 2026-May 2026: Full-stack OCR workflow platform for BTN use cases, designed around document intake, AI-assisted extraction, review queues, and structured operational handoff.
+- DCKTRP Document Intelligence System, Mar 2026-Apr 2026: OCR-assisted document intelligence system for processing, classification, and review experiences across administrative document flows.
+- Pegadaian AI App, Dec 2025-Jan 2026: AI and FinTech application exploring collateral assessment, market pricing context, and loan simulation workflows.
+- BYD Content Marketing AI, Jan 2026-Feb 2026: Content marketing AI workflow for BYD campaigns, translating product inputs into creative directions, campaign angles, and asset-ready copy structures.
+- AquaCulture Monitoring System, 2025: Monitoring system concept for aquaculture operations, bringing environmental signals and operational status into a web interface for clearer observation.
+
+Skills
+- Frontend: React, Next.js, TypeScript, Tailwind CSS, Responsive UI, Framer Motion.
+- Backend: Node.js, Express, PHP, Laravel, REST APIs, Workflow Logic.
+- AI & LLM: Gemini AI, LLM Integrations, OCR, Document Intelligence, Prompt Workflows, Computer Vision.
+- Cloud & DevOps: Git, Deployment Flow, Environment Setup, API Integration, Monitoring Mindset.
+- Database: PostgreSQL, Relational Modeling, Query Design, Data Validation, Operational Records.
+
+Achievements
+- PKM Funded Project: Recognized through a funded Program Kreativitas Mahasiswa project.
+- 1st Winner Business Idea Competition: Awarded first place for product and business idea positioning.
