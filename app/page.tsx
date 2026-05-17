@@ -1,107 +1,203 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 
-const navLinks = ["About", "Skills", "Work", "Contact"];
-
-const skills = [
-  {
-    category: "Interface Systems",
-    signal: "01",
-    items: ["React", "Next.js", "TypeScript", "Design Systems", "Motion"],
-  },
-  {
-    category: "Product Engines",
-    signal: "02",
-    items: ["Node.js", "Express", "PHP", "Laravel", "PostgreSQL", "Prisma"],
-  },
-  {
-    category: "Delivery Ops",
-    signal: "03",
-    items: ["Docker", "Vercel", "Git", "CI/CD", "Linux"],
-  },
+const navLinks = [
+  { label: "About", target: "about" },
+  { label: "Projects", target: "projects" },
+  { label: "Experience", target: "experience" },
+  { label: "Skills", target: "skills" },
+  { label: "Achievements", target: "achievements" },
+  { label: "Contact", target: "contact" },
 ];
+
+const heroSignals = ["AI workflows", "OCR systems", "Enterprise web apps", "LLM integrations"];
+
+const profileImage = {
+  src: "/photo.jpeg",
+  alt: "Portrait of Abdurrahman",
+};
 
 const projects = [
   {
     number: "01",
-    title: "Pegadaian AI App",
-    category: "Full Stack / AI + FinTech",
+    title: "BTN AI OCR Workflow Platform",
+    category: "Banking AI / OCR Workflow",
     description:
-      "OCR document intelligence and computer vision workflows for collateral assessment, market pricing, and real-time loan simulations with rule-based financial models.",
-    stack: ["Next.js", "Node.js", "Gemini AI", "Tailwind", "Express"],
-    year: "2025",
-    proof: "Collateral scoring lab",
+      "A full-stack OCR workflow platform for BTN use cases, designed around document intake, AI-assisted extraction, review queues, and structured handoff for operational teams.",
+    impact:
+      "Turned repetitive document review into a clearer AI-assisted workflow with traceable review states and enterprise-ready interface patterns.",
+    stack: ["Next.js", "TypeScript", "Node.js", "OCR", "AI Workflow"],
+    year: "Apr-May 2026",
+    visual: "Document queue",
+    link: "https://btn-ai.vercel.app/",
+    linkLabel: "Open website",
   },
   {
     number: "02",
-    title: "BYD Content Marketing AI",
-    category: "AI Product / Creative Automation",
+    title: "DCKTRP Document Intelligence System",
+    category: "Document AI / Public Sector",
     description:
-      "A single-asset campaign engine that turns product visuals into image, caption, and video concepts through prompt tuning and template-led generation flows.",
-    stack: ["Next.js", "Gemini AI", "Computer Vision", "Tailwind", "Node.js"],
-    year: "2025",
-    proof: "Campaign generation desk",
+      "Document intelligence system focused on OCR-assisted processing, classification, and review experiences for complex administrative document flows.",
+    impact:
+      "Reduced manual friction by making extracted fields, source context, and reviewer actions easier to inspect in one product surface.",
+    stack: ["Next.js", "Node.js", "OCR", "Document AI", "Dashboard"],
+    year: "Mar-Apr 2026",
+    visual: "Extraction grid",
+    privateNote: "Private / confidential project",
   },
   {
     number: "03",
-    title: "Orion CMS",
-    category: "Full Stack / SaaS",
+    title: "Pegadaian AI App",
+    category: "FinTech AI / Decision Support",
     description:
-      "Headless editorial platform with role-based access, media CDN handling, and a live-preview workspace for fast-moving content teams.",
-    stack: ["React", "Node.js", "Prisma", "S3"],
-    year: "2024",
-    proof: "Editorial control room",
+      "AI and FinTech application exploring collateral assessment, market pricing context, and loan simulation workflows for Pegadaian product scenarios.",
+    impact:
+      "Connected financial inputs, AI reasoning support, and practical simulation screens into a more usable decision-support experience.",
+    stack: ["Next.js", "Express", "Gemini AI", "FinTech", "Simulation"],
+    year: "Dec 2025-Jan 2026",
+    visual: "Scoring console",
+    link: "https://pegadaian-dev.vercel.app/",
+    linkLabel: "Open website",
+  },
+  {
+    number: "04",
+    title: "BYD Content Marketing AI",
+    category: "Creative AI / Marketing Automation",
+    description:
+      "Content marketing AI workflow for BYD campaigns, translating product inputs into faster creative directions, campaign angles, and asset-ready copy structures.",
+    impact:
+      "Helped move campaign ideation from blank-page work into a guided AI workflow for repeatable creative exploration.",
+    stack: ["Next.js", "Gemini AI", "Computer Vision", "Prompt Workflow", "Tailwind CSS"],
+    year: "Jan-Feb 2026",
+    visual: "Campaign lab",
+    link: "https://byd-marketing-ai.vercel.app/",
+    linkLabel: "Open website",
+  },
+  {
+    number: "05",
+    title: "AquaCulture Monitoring System",
+    category: "IoT / Monitoring Platform",
+    description:
+      "Monitoring system concept for aquaculture operations, bringing environmental signals and operational status into a web interface for clearer observation.",
+    impact:
+      "Created a practical monitoring direction for field data, status visibility, and faster response planning in aquaculture contexts.",
+    stack: ["Web Dashboard", "Monitoring", "IoT Concept", "Data Visualization", "Product Design", "Laravel"],
+    year: "2025",
+    visual: "Sensor map",
+    link: "https://github.com/adun123/AquaCulture.git",
+    linkLabel: "View GitHub",
   },
 ];
 
-const timeline = [
-  ["Jakarta", "Building from Indonesia for teams that move across time zones."],
-  ["5+ years", "From first interface sketches to production infrastructure."],
-  ["AI ready", "FinTech, computer vision, and creative automation shaped into usable tools."],
+const experiences = [
+  {
+    role: "Full Stack Engineer Intern",
+    place: "PT Solusi Data Industri / Dataisolv",
+    period: "Dec 2025-Present",
+    detail:
+      "Building product interfaces, backend flows, and AI-assisted web systems for enterprise workflow use cases.",
+  },
+  {
+    role: "Agentic AI Co-Trainer",
+    place: "XLSMART",
+    period: "Apr 2026-May 2026",
+    detail:
+      "Supporting agentic AI learning delivery, participant guidance, and practical AI workflow enablement.",
+  },
+  {
+    role: "Teaching Assistant Roles",
+    place: "Academic learning support",
+    period: "2024-2025",
+    detail:
+      "Assisting students with technical learning, structured practice, and classroom support across computing topics.",
+  },
+  {
+    role: "Research Internship",
+    place: "STAS-RG",
+    period: "Sep 2024-Jun 2025",
+    detail:
+      "Contributing to research-group work while sharpening applied systems thinking and technical documentation habits.",
+  },
 ];
 
-const portraitSvg = encodeURIComponent(`
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 900">
-  <defs>
-    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#f2d9b0"/>
-      <stop offset="0.52" stop-color="#c87f45"/>
-      <stop offset="1" stop-color="#14434b"/>
-    </linearGradient>
-    <radialGradient id="halo" cx="34%" cy="23%" r="58%">
-      <stop offset="0" stop-color="#fff6df" stop-opacity="0.94"/>
-      <stop offset="1" stop-color="#fff6df" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <rect width="720" height="900" fill="#17282b"/>
-  <rect width="720" height="900" fill="url(#paper)" opacity="0.9"/>
-  <circle cx="255" cy="210" r="260" fill="url(#halo)"/>
-  <path d="M95 782c39-166 147-267 281-267s235 102 264 267" fill="#10191a" opacity="0.86"/>
-  <path d="M218 381c-12-112 39-206 154-210 119-4 174 88 166 203-8 117-69 202-158 205-87 3-149-80-162-198Z" fill="#6f3c27"/>
-  <path d="M233 356c24-48 91-43 132-72 57-39 103-18 151 21-15-84-65-139-145-137-91 2-138 72-138 188Z" fill="#10191a"/>
-  <path d="M231 410c32 50 87 76 154 76 61 0 105-28 136-74-18 92-65 160-141 163-74 3-128-64-149-165Z" fill="#2b1511" opacity="0.34"/>
-  <path d="M172 142h378M148 690h425M599 186v518M126 186v518" stroke="#f7e6c0" stroke-width="8" opacity="0.38"/>
-  <path d="M118 730 610 168M112 206l505 505" stroke="#f6c05c" stroke-width="3" opacity="0.28"/>
-  <g fill="#f7e6c0" opacity="0.74">
-    <circle cx="141" cy="172" r="7"/><circle cx="581" cy="172" r="7"/>
-    <circle cx="141" cy="722" r="7"/><circle cx="581" cy="722" r="7"/>
-  </g>
-</svg>
-`);
+const skills = [
+  {
+    category: "Frontend",
+    items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Responsive UI", "Framer Motion"],
+  },
+  {
+    category: "Backend",
+    items: ["Node.js", "Express", "PHP", "Laravel", "REST APIs", "Workflow Logic"],
+  },
+  {
+    category: "AI & LLM",
+    items: ["Gemini AI", "LLM Integrations", "OCR", "Document Intelligence", "Prompt Workflows", "Computer Vision"],
+  },
+  {
+    category: "Cloud & DevOps",
+    items: ["Git", "Deployment Flow", "Environment Setup", "API Integration", "Monitoring Mindset"],
+  },
+  {
+    category: "Database",
+    items: ["PostgreSQL", "Relational Modeling", "Query Design", "Data Validation", "Operational Records"],
+  },
+];
+
+const achievements = [
+  {
+    title: "PKM Funded Project",
+    detail:
+      "Recognized through a funded Program Kreativitas Mahasiswa project, reflecting product initiative, research framing, and team execution.",
+  },
+  {
+    title: "1st Winner Business Idea Competition",
+    detail:
+      "Awarded first place for a business idea competition through clear problem positioning, solution framing, and practical delivery narrative.",
+  },
+];
+
+const reveal = {
+  hidden: { opacity: 0, y: 34 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
-  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set(["hero"]));
+  const [loading, setLoading] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [photoFailed, setPhotoFailed] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 32);
+    const timer = window.setTimeout(() => setLoading(false), 950);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
   useEffect(() => {
@@ -109,30 +205,38 @@ export default function Home() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-
-          const sectionId = entry.target.id;
-          setActiveSection(sectionId);
-          setVisibleSections((current) => {
-            if (current.has(sectionId)) return current;
-            const next = new Set(current);
-            next.add(sectionId);
-            return next;
-          });
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
         });
       },
-      { rootMargin: "-30% 0px -45%", threshold: 0.12 }
+      { rootMargin: "-34% 0px -50%", threshold: 0.08 }
     );
 
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, []);
 
-  const sectionClass = (section: string, baseClass: string) =>
-    `${baseClass} ${visibleSections.has(section) ? styles.sectionVisible : ""}`;
-
   return (
     <main className={styles.main}>
+      <AnimatePresence>
+        {loading ? (
+          <motion.div
+            className={styles.loader}
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.35 } }}
+            aria-label="Loading portfolio"
+          >
+            <motion.div
+              className={styles.loaderMark}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1.4, repeat: Infinity, ease: "linear" }}
+            />
+            <span>Preparing Abdurrahman portfolio</span>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+
       <nav className={`${styles.nav} ${scrolled ? styles.navScrolled : ""}`} aria-label="Primary navigation">
         <a
           href="#hero"
@@ -141,121 +245,153 @@ export default function Home() {
           aria-current={activeSection === "hero" ? "location" : undefined}
           onClick={() => setActiveSection("hero")}
         >
-          <span>A</span>
-          <span>R</span>
+          <span>AI</span>
+          <span>AR</span>
         </a>
-        <ul className={styles.navLinks}>
-          {navLinks.map((link) => {
-            const target = link.toLowerCase();
-            return (
-              <li key={link}>
-                <a
-                  href={`#${target}`}
-                  className={`${styles.navLink} ${activeSection === target ? styles.navLinkActive : ""}`}
-                  aria-current={activeSection === target ? "location" : undefined}
-                  onClick={() => setActiveSection(target)}
-                >
-                  {link}
-                </a>
-              </li>
-            );
-          })}
+        <button
+          className={styles.menuToggle}
+          type="button"
+          aria-controls="primary-navigation"
+          aria-expanded={menuOpen}
+          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+          onClick={() => setMenuOpen((current) => !current)}
+        >
+          <span>{menuOpen ? "Close" : "Menu"}</span>
+          <i aria-hidden="true" />
+        </button>
+        <ul id="primary-navigation" className={`${styles.navLinks} ${menuOpen ? styles.navLinksOpen : ""}`}>
+          {navLinks.map((link) => (
+            <li key={link.target}>
+              <a
+                href={`#${link.target}`}
+                className={`${styles.navLink} ${activeSection === link.target ? styles.navLinkActive : ""}`}
+                aria-current={activeSection === link.target ? "location" : undefined}
+                onClick={() => {
+                  setActiveSection(link.target);
+                  setMenuOpen(false);
+                }}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
         </ul>
       </nav>
 
-      <section id="hero" className={`${styles.hero} ${styles.sectionVisible}`}>
+      <section id="hero" className={styles.hero}>
         <div className={styles.gridWash} aria-hidden="true" />
-        <div className={styles.heroCopy}>
-          <p className={styles.kicker}>Abdurrahman / Fullstack developer</p>
-          <h1 className={styles.heroTitle}>
-            Building useful web products from interface to backend logic.
-          </h1>
-          <p className={styles.heroLead}>
-            I work with React, Next.js, PHP, Laravel, and Node.js to ship clean interfaces, reliable APIs, and automation tools for real product needs.
-          </p>
-          <div className={styles.heroActions}>
-            <a href="#work" className={styles.btnPrimary}>Open the work ledger</a>
-            <a href="#contact" className={styles.btnSecondary}>Start a build note</a>
-          </div>
-        </div>
+        <motion.div
+          className={styles.heroCopy}
+          initial="hidden"
+          animate="visible"
+          variants={stagger}
+        >
+          <motion.p className={styles.kicker} variants={reveal} transition={{ duration: 0.65 }}>
+            Abdurrahman / AI-Powered Full Stack Engineer
+          </motion.p>
+          <motion.h1 className={styles.heroTitle} variants={reveal} transition={{ duration: 0.72 }}>
+            Engineering AI workflows into premium web products.
+          </motion.h1>
+          <motion.p className={styles.heroLead} variants={reveal} transition={{ duration: 0.72 }}>
+            I build OCR systems, enterprise web apps, and LLM integrations that turn messy operational work into clear, reliable digital products.
+          </motion.p>
+          <motion.div className={styles.heroActions} variants={reveal} transition={{ duration: 0.72 }}>
+            <a href="#projects" className={styles.btnPrimary}>View Projects</a>
+            <a href="/abdurrahman-cv.txt" className={styles.btnSecondary} download>Download CV</a>
+          </motion.div>
+        </motion.div>
 
-        <div className={styles.heroPanel} aria-label="Profile composition for Abdurrahman">
-          <div className={styles.portraitFrame}>
-            <Image
-              src={`data:image/svg+xml,${portraitSvg}`}
-              alt="Temporary illustrated profile portrait of Abdurrahman in a Jakarta engineering dossier style"
-              width={720}
-              height={900}
-              className={styles.portrait}
-            />
+        <motion.div
+          className={styles.heroPanel}
+          initial={{ opacity: 0, y: 42, rotate: -1.5 }}
+          animate={{ opacity: 1, y: 0, rotate: 0 }}
+          transition={{ duration: 0.85, delay: 0.2 }}
+          aria-label="AI engineering control panel"
+        >
+          <div className={styles.signalOrb} aria-hidden="true" />
+          <div className={styles.photoFrame}>
+            {photoFailed ? (
+              <div className={styles.photoFallback}>
+                <strong>AR</strong>
+                <span>Replace public/profile.png with your photo</span>
+              </div>
+            ) : (
+              <Image
+                src={profileImage.src}
+                alt={profileImage.alt}
+                fill
+                priority
+                sizes="(max-width: 688px) 88vw, (max-width: 1024px) 28rem, 24rem"
+                className={styles.profilePhoto}
+                onError={() => setPhotoFailed(true)}
+              />
+            )}
+          </div>
+          <div className={styles.consoleCard}>
+            <div className={styles.consoleTopline}>
+              <span>LIVE BUILD NODE</span>
+              <strong>Jakarta</strong>
+            </div>
+            <div className={styles.consoleScreen}>
+              {heroSignals.map((signal, index) => (
+                <motion.div
+                  className={styles.signalRow}
+                  key={signal}
+                  initial={{ opacity: 0, x: 16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.45, delay: 0.44 + index * 0.12 }}
+                >
+                  <span>0{index + 1}</span>
+                  <strong>{signal}</strong>
+                </motion.div>
+              ))}
+            </div>
+            <div className={styles.consoleFooter}>
+              <span>Next.js + AI systems</span>
+              <span>Production-minded delivery</span>
+            </div>
           </div>
           <div className={styles.statusCard}>
             <span className={styles.statusDot} />
-            <span>Available for AI, FinTech, and creative automation builds</span>
+            <span>Available for AI product engineering, OCR platforms, and enterprise workflow systems.</span>
           </div>
-          <div className={styles.coordinateCard}>
-            <span>JKT</span>
-            <strong>06.2088 S / 106.8456 E</strong>
-          </div>
-        </div>
+        </motion.div>
       </section>
 
-      <section id="about" className={sectionClass("about", styles.about)}>
-        <div className={styles.sectionRail}>
-          <span className={styles.sectionNumber}>01</span>
-          <span className={styles.sectionLabel}>About</span>
-        </div>
-        <div className={styles.aboutContent}>
-          <h2 className={styles.sectionTitle}>A builder for teams that need the prototype to become the product.</h2>
+      <motion.section id="about" className={styles.about} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-90px" }} variants={stagger}>
+        <SectionRail number="01" label="About" />
+        <motion.div className={styles.aboutContent} variants={reveal} transition={{ duration: 0.65 }}>
+          <h2 className={styles.sectionTitle}>A full stack engineer for teams moving AI from demo to workflow.</h2>
           <div className={styles.aboutBody}>
             <p>
-              I am Abdurrahman, a Jakarta-based fullstack engineer working across interface systems, backend services, and AI-assisted workflows. My work sits at the practical edge of FinTech, computer vision, and creative operations.
+              I am Abdurrahman, an AI-Powered Full Stack Engineer and Informatics student at Telkom University working across interfaces, backend services, OCR pipelines, and LLM-enabled workflows.
             </p>
             <p>
-              I like products with a pulse: dashboards that explain risk clearly, content tools that remove repetitive work, and platforms where the architecture stays calm as the idea gets bigger.
+              My work sits where product clarity meets technical execution: enterprise dashboards, document intelligence systems, FinTech experiments, and AI workflows that make complex operations easier to review and ship.
             </p>
           </div>
-          <div className={styles.timelineGrid}>
-            {timeline.map(([label, detail]) => (
-              <article key={label} className={styles.timelineCard}>
-                <strong>{label}</strong>
-                <span>{detail}</span>
-              </article>
-            ))}
+          <div className={styles.profileStats} aria-label="Professional focus areas">
+            <span>AI workflows</span>
+            <span>OCR systems</span>
+            <span>Enterprise web apps</span>
+            <span>LLM integrations</span>
           </div>
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
-      <section id="skills" className={sectionClass("skills", styles.skills)}>
-        <div className={styles.sectionIntro}>
-          <span className={styles.sectionNumber}>02</span>
-          <span className={styles.sectionLabel}>Skills</span>
-          <h2 className={styles.sectionTitle}>A practical stack for shipping polished, intelligent products.</h2>
-        </div>
-        <div className={styles.skillsGrid}>
-          {skills.map((group) => (
-            <article key={group.category} className={styles.skillCard}>
-              <span className={styles.skillSignal}>{group.signal}</span>
-              <h3>{group.category}</h3>
-              <ul>
-                {group.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section id="work" className={sectionClass("work", styles.work)}>
-        <div className={styles.sectionIntro}>
-          <span className={styles.sectionNumber}>03</span>
-          <span className={styles.sectionLabel}>Selected work</span>
-          <h2 className={styles.sectionTitle}>Project notes from AI labs, finance desks, and editorial rooms.</h2>
-        </div>
-        <div className={styles.projectLedger}>
+      <motion.section id="projects" className={styles.projects} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-90px" }} variants={stagger}>
+        <SectionIntro number="02" label="Featured Projects" title="Five product builds shaped around AI, workflow clarity, and real operational use cases." />
+        <div className={styles.projectGrid}>
           {projects.map((project) => (
-            <article key={project.number} className={styles.projectCard}>
+            <motion.article className={styles.projectCard} key={project.title} variants={reveal} transition={{ duration: 0.58 }} whileHover={{ y: -8 }}>
+              <div className={styles.projectVisual} aria-hidden="true">
+                <span>{project.visual}</span>
+                <div className={styles.visualFrame}>
+                  <i />
+                  <i />
+                  <i />
+                </div>
+              </div>
               <div className={styles.projectIndex}>
                 <span>{project.number}</span>
                 <small>{project.year}</small>
@@ -264,51 +400,122 @@ export default function Home() {
                 <span className={styles.projectCategory}>{project.category}</span>
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
+                <div className={styles.projectImpact}>
+                  <strong>Impact</strong>
+                  <span>{project.impact}</span>
+                </div>
                 <div className={styles.projectStack}>
                   {project.stack.map((item) => (
                     <span key={item}>{item}</span>
                   ))}
                 </div>
+                <div className={styles.projectActions}>
+                  {project.link ? (
+                    <a href={project.link} target="_blank" rel="noreferrer noopener" aria-label={`Open ${project.title}`}>
+                      {project.linkLabel}
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  ) : (
+                    <span className={styles.projectPrivate}>{project.privateNote}</span>
+                  )}
+                </div>
               </div>
-              <div className={styles.projectProof}>
-                <span>{project.proof}</span>
-              </div>
-            </article>
+            </motion.article>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section id="contact" className={sectionClass("contact", styles.contact)}>
-        <div className={styles.contactCard}>
+      <motion.section id="experience" className={styles.experience} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-90px" }} variants={stagger}>
+        <SectionIntro number="03" label="Experience Timeline" title="A path through full-stack delivery, AI training, teaching support, and research practice." />
+        <div className={styles.timeline}>
+          {experiences.map((item) => (
+            <motion.article className={styles.timelineItem} key={item.role} variants={reveal} transition={{ duration: 0.58 }}>
+              <span className={styles.timelineDot} aria-hidden="true" />
+              <div>
+                <span className={styles.timelinePeriod}>{item.period}</span>
+                <h3>{item.role}</h3>
+                <strong>{item.place}</strong>
+                <p>{item.detail}</p>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </motion.section>
+
+      <motion.section id="skills" className={styles.skills} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-90px" }} variants={stagger}>
+        <SectionIntro number="04" label="Skills" title="A practical stack for shipping AI-powered full-stack products." />
+        <div className={styles.skillsGrid}>
+          {skills.map((group, index) => (
+            <motion.article className={styles.skillCard} key={group.category} variants={reveal} transition={{ duration: 0.58 }}>
+              <span className={styles.skillSignal}>0{index + 1}</span>
+              <h3>{group.category}</h3>
+              <ul>
+                {group.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </motion.article>
+          ))}
+        </div>
+      </motion.section>
+
+      <motion.section id="achievements" className={styles.achievements} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-90px" }} variants={stagger}>
+        <SectionIntro number="05" label="Achievements" title="Signals of initiative across funded work and competitive product thinking." />
+        <div className={styles.achievementGrid}>
+          {achievements.map((achievement) => (
+            <motion.article className={styles.achievementCard} key={achievement.title} variants={reveal} transition={{ duration: 0.58 }}>
+              <span>Award</span>
+              <h3>{achievement.title}</h3>
+              <p>{achievement.detail}</p>
+            </motion.article>
+          ))}
+        </div>
+      </motion.section>
+
+      <motion.section id="contact" className={styles.contact} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-90px" }} variants={stagger}>
+        <motion.div className={styles.contactCard} variants={reveal} transition={{ duration: 0.65 }}>
           <span className={styles.sectionLabel}>Contact</span>
-          <h2>Have an ambitious product problem? Send the first signal.</h2>
+          <h2>Let us turn the next AI workflow into a product.</h2>
           <p>
-            I am open to freelance builds and full-time product engineering roles, especially around AI, FinTech, and creative automation.
+            I am open to conversations around AI-powered web apps, OCR platforms, enterprise dashboards, document intelligence, and LLM integrations.
           </p>
           <div className={styles.contactActions}>
-            <a
-              href="mailto:abdurrahmanaikon@gmail.com"
-              className={styles.mailLink}
-              aria-label="Email Abdurrahman at abdurrahmanaikon@gmail.com"
-            >
+            <a href="mailto:abdurrahmanaikon@gmail.com" className={styles.mailLink} aria-label="Email Abdurrahman at abdurrahmanaikon@gmail.com">
               abdurrahmanaikon@gmail.com
             </a>
-            <a href="/abdurrahman-cv.txt" className={styles.downloadLink} download>
-              Download CV
-            </a>
+            <a href="/abdurrahman-cv.txt" className={styles.downloadLink} download>Download CV</a>
+            <a href="https://www.linkedin.com/in/abdurrahman-8719092b1" className={styles.downloadLink} target="_blank" rel="noreferrer noopener">LinkedIn</a>
           </div>
-          <div className={styles.socials} aria-label="Social links">
-            <a href="https://www.linkedin.com/in/abdurrahmanaikon" target="_blank" rel="noreferrer">LinkedIn</a>
-            <a href="https://www.instagram.com/abdurrahmanaikon" target="_blank" rel="noreferrer">Instagram</a>
-            <a href="#work">Case Notes</a>
+          <div className={styles.socials} aria-label="Additional contact details">
+            <span>GitHub available on request</span>
+            <a href="tel:+6281398515784">+62 81398 515784</a>
           </div>
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
       <footer className={styles.footer}>
-        <span>Abdurrahman / Fullstack engineer / Jakarta</span>
+        <span>Abdurrahman / AI-Powered Full Stack Engineer / Jakarta</span>
         <a href="#hero">Back to top</a>
       </footer>
     </main>
+  );
+}
+
+function SectionRail({ number, label }: { number: string; label: string }) {
+  return (
+    <motion.div className={styles.sectionRail} variants={reveal} transition={{ duration: 0.65 }}>
+      <span className={styles.sectionNumber}>{number}</span>
+      <span className={styles.sectionLabel}>{label}</span>
+    </motion.div>
+  );
+}
+
+function SectionIntro({ number, label, title }: { number: string; label: string; title: string }) {
+  return (
+    <motion.div className={styles.sectionIntro} variants={reveal} transition={{ duration: 0.65 }}>
+      <span className={styles.sectionNumber}>{number}</span>
+      <span className={styles.sectionLabel}>{label}</span>
+      <h2 className={styles.sectionTitle}>{title}</h2>
+    </motion.div>
   );
 }
