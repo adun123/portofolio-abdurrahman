@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns: [
+      // Live website screenshot service used for project previews
+      { protocol: "https", hostname: "image.thum.io" },
+    ],
+  },
 };
 
 export default nextConfig;
