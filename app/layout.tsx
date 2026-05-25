@@ -1,34 +1,30 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-fraunces",
-  axes: ["opsz", "SOFT", "WONK"],
-});
 
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-sans",
 });
 
-const jetbrains = JetBrains_Mono({
+const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
   display: "swap",
-  variable: "--font-jetbrains",
+  variable: "--font-serif",
 });
 
 export const metadata: Metadata = {
-  title: "Abdurrahman / AI-Powered Full Stack Engineer",
+  title: "Abdurrahman — AI-Powered Full Stack Engineer",
   description:
-    "AI-Powered Full Stack Engineer building OCR systems, enterprise web apps, AI workflows, document intelligence platforms, and LLM integrations.",
+    "Abdurrahman is an AI-powered full stack engineer building intelligent systems and digital experiences — OCR pipelines, document intelligence, LLM workflows, and enterprise web products.",
+  metadataBase: new URL("https://abdurrahman.dev"),
   openGraph: {
-    title: "Abdurrahman / AI-Powered Full Stack Engineer",
+    title: "Abdurrahman — AI-Powered Full Stack Engineer",
     description:
-      "AI-Powered Full Stack Engineer building OCR systems, enterprise web apps, AI workflows, document intelligence platforms, and LLM integrations.",
+      "Building intelligent systems and digital experiences. OCR pipelines, document intelligence, LLM workflows, enterprise web products.",
     type: "website",
   },
 };
@@ -41,9 +37,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${inter.variable} ${jetbrains.variable}`}
+      className={`${inter.variable} ${instrumentSerif.variable}`}
+      suppressHydrationWarning
     >
-      <body className="bg-paper text-ink antialiased">{children}</body>
+      <body className="bg-bg text-fg antialiased selection:bg-fg/90 selection:text-bg">
+        {children}
+      </body>
     </html>
   );
 }

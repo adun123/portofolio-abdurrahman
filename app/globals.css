@@ -1,29 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: var(--font-fraunces), Georgia, serif;
-  --font-sans: var(--font-inter), "Inter", "Segoe UI", sans-serif;
-  --font-mono: var(--font-jetbrains), "JetBrains Mono", "Cascadia Mono", monospace;
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-serif), ui-serif, Georgia, Cambria,
+    "Times New Roman", Times, serif;
 
-  --color-paper: #05070b;
-  --color-paper-soft: #0e1722;
-  --color-ink: #f6f3e8;
-  --color-ink-soft: #c8d0ce;
-  --color-muted: #a4adb0;
-  --color-line: rgba(232, 247, 241, 0.16);
-  --color-line-strong: rgba(232, 247, 241, 0.3);
-  --color-panel: rgba(9, 16, 25, 0.68);
-  --color-panel-strong: rgba(13, 22, 33, 0.9);
-  --color-accent: #f7c75b;
-  --color-accent-soft: #48f2d1;
-  --color-accent-deep: #ff5e3f;
-  --color-teal: #48f2d1;
-  --color-teal-soft: #8bfbe9;
-  --color-cream: #f6f3e8;
+  /* Editorial dark palette — calm, premium, minimal */
+  --color-bg: #0a0a0b;
+  --color-bg-2: #101012;
+  --color-bg-3: #16161a;
+  --color-fg: #ededed;
+  --color-fg-soft: #c8c8cc;
+  --color-fg-muted: #8a8a90;
+  --color-fg-faint: #5a5a60;
+  --color-line: rgba(237, 237, 237, 0.08);
+  --color-line-strong: rgba(237, 237, 237, 0.16);
+  --color-accent: #7b9cff; /* muted, sophisticated blue */
+  --color-accent-soft: #a9bdff;
+}
 
-  --shadow-panel: 0 1.25rem 4rem rgba(0, 0, 0, 0.42);
-  --shadow-lift: 0 2rem 5.5rem rgba(0, 0, 0, 0.58);
-  --shadow-print: 0 0.25rem 0 rgba(72, 242, 209, 0.12), 0 1.25rem 2.5rem rgba(0, 0, 0, 0.28);
+:root {
+  color-scheme: dark;
 }
 
 *,
@@ -32,22 +30,20 @@
   box-sizing: border-box;
 }
 
-* {
-  margin: 0;
-}
-
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color-scheme: dark;
+  text-rendering: optimizeLegibility;
 }
 
 body {
   min-height: 100vh;
-  overflow-x: hidden;
   font-family: var(--font-sans);
-  background-color: var(--color-paper);
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  font-feature-settings: "ss01", "cv11";
+  overflow-x: hidden;
 }
 
 a {
@@ -55,112 +51,63 @@ a {
   text-decoration: none;
 }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
 img,
 picture,
 video,
-canvas,
 svg {
   display: block;
   max-width: 100%;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+/* Subtle hairline divider used throughout */
+.hairline {
+  height: 1px;
+  background: var(--color-line);
 }
 
-/* editorial paper texture */
-.paper-grain {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.55;
-  background-image:
-    radial-gradient(rgba(21, 17, 10, 0.18) 0.6px, transparent 0.6px),
-    radial-gradient(rgba(21, 17, 10, 0.1) 0.4px, transparent 0.4px);
-  background-size: 0.36rem 0.36rem, 0.7rem 0.7rem;
-  background-position: 0 0, 0.18rem 0.18rem;
-  mix-blend-mode: multiply;
-}
-
-.paper-grid {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.5;
-  background-image:
-    linear-gradient(var(--color-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
-  background-size: 5.5rem 5.5rem;
-  mask-image: linear-gradient(to bottom, black, transparent 88%);
-}
-
-/* utility text styles */
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.display {
-  font-family: var(--font-display);
-  font-feature-settings: "ss01", "ss02";
-  letter-spacing: -0.04em;
-  line-height: 0.88;
-}
-
-.serif-italic {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-variation-settings: "SOFT" 60, "WONK" 1;
-}
-
-/* reveal animation */
-.reveal {
-  opacity: 0;
-  transform: translateY(2rem);
-  transition: opacity 900ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    transform 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* marquee */
+/* Marquee for skills row (kept as a tasteful option, not used by default) */
 @keyframes marquee {
   to {
     transform: translateX(-50%);
   }
 }
 
-.marquee-track {
-  display: flex;
-  gap: 4rem;
-  width: max-content;
-  animation: marquee 38s linear infinite;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-  .marquee-track {
-    animation: none;
-  }
+/* Faint background grid — used very sparingly behind hero */
+.bg-grain {
+  background-image: radial-gradient(
+    rgba(237, 237, 237, 0.05) 1px,
+    transparent 1px
+  );
+  background-size: 3px 3px;
+}
+
+/* Section number tab style */
+.tab {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+}
+
+/* Italic serif accent — used as emphasis only */
+.serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
