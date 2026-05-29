@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
@@ -29,12 +29,12 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
-    index: "01",
+    index: "",
     title: "BTN AI OCR Workflow",
     category: "Banking · Document AI",
     year: "2026",
     problem:
-      "Operations teams at BTN reviewed paper-heavy applications by hand — slow, inconsistent, and impossible to audit at scale.",
+      "Operations teams at BTN reviewed paper-heavy applications by hand  slow, inconsistent, and impossible to audit at scale.",
     solution:
       "A full-stack OCR workflow platform with AI-assisted extraction, traceable review queues, and structured handoff for downstream systems.",
     impact:
@@ -43,21 +43,21 @@ const PROJECTS: Project[] = [
     url: "https://btn-ai.vercel.app/",
   },
   {
-    index: "02",
+    index: "",
     title: "DCKTRP Document Intelligence",
     category: "Public Sector · Document AI",
     year: "2026",
     problem:
-      "Administrative document flows mixed scanned forms, mixed quality scans, and inconsistent fields — manual review was the bottleneck.",
+      "Administrative document flows mixed scanned forms, mixed quality scans, and inconsistent fields  manual review was the bottleneck.",
     solution:
       "Document intelligence system with OCR-assisted processing, classification, and a focused reviewer surface that exposes source context next to extracted fields.",
     impact:
-      "Field validation, source inspection, and reviewer actions live on one screen — reducing context-switching across multi-page documents.",
+      "Field validation, source inspection, and reviewer actions live on one screen reducing context-switching across multi-page documents.",
     stack: ["Next.js", "Node.js", "OCR", "Document AI"],
     private: true,
   },
   {
-    index: "03",
+    index: "",
     title: "Pegadaian AI",
     category: "FinTech · Decision Support",
     year: "2025 — 2026",
@@ -66,12 +66,12 @@ const PROJECTS: Project[] = [
     solution:
       "An AI decision-support app that joins financial inputs, market pricing context, and Gemini-assisted reasoning into a single simulation experience.",
     impact:
-      "Faster, more consistent collateral and loan exploration — with AI reasoning kept transparent next to the numbers.",
+      "Faster, more consistent collateral and loan exploration with AI reasoning kept transparent next to the numbers.",
     stack: ["Next.js", "Express", "Gemini", "FinTech"],
     url: "https://pegadaian-dev.vercel.app/",
   },
   {
-    index: "04",
+    index: "",
     title: "BYD Content Marketing AI",
     category: "Creative AI · Marketing",
     year: "2026",
@@ -323,7 +323,7 @@ function Hero() {
               className="inline-block h-1.5 w-1.5 rounded-full bg-accent"
               style={{ boxShadow: "0 0 0 4px rgba(123,156,255,0.12)" }}
             />
-            Available for new work — 2026
+            Available for new work 2026
           </div>
         </Reveal>
 
@@ -339,7 +339,7 @@ function Hero() {
         <div className="mt-14 grid gap-10 md:mt-20 md:grid-cols-12 md:gap-16">
           <Reveal delay={0.15} className="md:col-span-7 md:col-start-1">
             <p className="max-w-[44ch] text-lg leading-relaxed text-fg-soft md:text-xl">
-              I&apos;m Abdurrahman — an AI-powered full stack engineer working
+              I&apos;m Abdurrahman  an AI-powered full stack engineer working
               at the seam between product and machine intelligence. I build OCR
               pipelines, LLM workflows, and enterprise web products that move
               from prototype to reliable, observable systems.
@@ -378,7 +378,7 @@ function Work() {
       <div className="mx-auto max-w-[88rem] px-6 md:px-10">
         <Reveal>
           <SectionHeader index="(01)" label="Selected Work">
-            A handful of projects where AI met a real workflow — and shipped.
+            A handful of projects where AI met a real workflow  and shipped.
           </SectionHeader>
         </Reveal>
 
@@ -604,14 +604,14 @@ function About() {
                 I&apos;m an Informatics student at Telkom University and a full
                 stack engineer working across interfaces, backend services, OCR
                 pipelines, and LLM-enabled workflows. My work sits where product
-                clarity meets technical execution — enterprise dashboards,
+                clarity meets technical execution enterprise dashboards,
                 document intelligence, FinTech experiments, and AI workflows
                 that make complex operations easier to review and ship.
               </p>
               <p>
                 I care about restraint: clear interfaces, observable systems,
                 and code that ages well. The best engineering I&apos;ve seen
-                feels quiet — the system does the work, and the product gets
+                feels quiet the system does the work, and the product gets
                 out of the way.
               </p>
             </div>
