@@ -10,7 +10,6 @@ export default function Nav() {
   const [active, setActive] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const islandRef = useRef<HTMLDivElement>(null);
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -19,21 +18,15 @@ export default function Nav() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  // Expand after scrolling past hero (desktop only)
   useEffect(() => {
     const onScroll = () => {
-      if (!isMobile) {
-        setExpanded(window.scrollY > window.innerHeight * 0.6);
-      } else {
-        setExpanded(window.scrollY > 50);
-      }
+      setExpanded(window.scrollY > (isMobile ? 50 : window.innerHeight * 0.6));
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [isMobile]);
 
-  // Track active section
   useEffect(() => {
     const ids = NAV.map((n) => n.href.replace("#", ""));
     const onScroll = () => {
@@ -51,7 +44,7 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Animate morph (desktop)
+  // Desktop morph
   useEffect(() => {
     if (!islandRef.current || isMobile) return;
     gsap.to(islandRef.current, {
@@ -63,31 +56,12 @@ export default function Nav() {
     });
   }, [expanded, isMobile]);
 
-  // Mobile menu animation
-  useEffect(() => {
-    if (!mobileMenuRef.current) return;
-    if (mobileOpen) {
-      gsap.to(mobileMenuRef.current, {
-        height: "auto",
-        opacity: 1,
-        duration: 0.4,
-        ease: "power3.out",
-      });
-    } else {
-      gsap.to(mobileMenuRef.current, {
-        height: 0,
-        opacity: 0,
-        duration: 0.3,
-        ease: "power2.in",
-      });
-    }
-  }, [mobileOpen]);
-
   return (
     <header className="fixed inset-x-0 top-0 z-50 flex flex-col items-center pt-3 md:pt-4 pointer-events-none">
+      {/* Island pill */}
       <div
         ref={islandRef}
-        className="island pointer-events-auto"
+        className={`island pointer-events-auto ${isMobile ? "!w-auto !px-4" : ""}`}
         onMouseEnter={() => {
           if (islandRef.current && !isMobile) {
             gsap.to(islandRef.current, { scale: 1.04, duration: 0.25, ease: "power2.out" });
@@ -100,15 +74,12 @@ export default function Nav() {
         }}
       >
         {/* Left: dot + name */}
-        <a
-          href="#top"
-          className="flex items-center gap-2 text-sm font-medium text-fg whitespace-nowrap"
-        >
+        <a href="#top" className="flex items-center gap-2 text-sm font-medium text-fg whitespace-nowrap">
           <span className="relative flex h-2 w-2 shrink-0">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-50" />
             <span className="inline-flex h-2 w-2 rounded-full bg-accent" />
           </span>
-          <span className={`transition-all duration-300 ${expanded ? "opacity-100 max-w-[10rem]" : "opacity-0 max-w-0 overflow-hidden"}`}>
+          <span className={`transition-all duration-300 ${isMobile || expanded ? "opacity-100 max-w-[10rem]" : "opacity-0 max-w-0 overflow-hidden"}`}>
             Abdurrahman
           </span>
         </a>
@@ -117,7 +88,7 @@ export default function Nav() {
         {!isMobile && (
           <nav
             aria-label="Primary"
-            className={`hidden md:flex items-center gap-5 transition-all duration-300 overflow-hidden ${
+            className={`flex items-center gap-5 transition-all duration-300 overflow-hidden ${
               expanded ? "ml-5 max-w-[40rem] opacity-100" : "ml-0 max-w-0 opacity-0"
             }`}
           >
@@ -138,46 +109,48 @@ export default function Nav() {
           </nav>
         )}
 
-        {/* Mobile: hamburger button */}
-        {isMobile && expanded && (
+        {/* Mobile: always show hamburger */}
+        {isMobile && (
           <button
             type="button"
             onClick={() => setMobileOpen((v) => !v)}
-            className="ml-3 flex items-center gap-1.5 text-xs text-fg-muted"
+            className="ml-3 flex items-center p-1"
             aria-expanded={mobileOpen}
             aria-label="Toggle menu"
           >
             <span className="flex flex-col gap-[3px]">
-              <span className={`block h-[1.5px] w-3.5 bg-fg-muted transition-transform duration-300 ${mobileOpen ? "translate-y-[5px] rotate-45" : ""}`} />
-              <span className={`block h-[1.5px] w-3.5 bg-fg-muted transition-opacity duration-300 ${mobileOpen ? "opacity-0" : ""}`} />
-              <span className={`block h-[1.5px] w-3.5 bg-fg-muted transition-transform duration-300 ${mobileOpen ? "-translate-y-[5px] -rotate-45" : ""}`} />
+              <span className={`block h-[1.5px] w-4 bg-fg transition-all duration-300 origin-center ${mobileOpen ? "translate-y-[5.5px] rotate-45" : ""}`} />
+              <span className={`block h-[1.5px] w-4 bg-fg transition-opacity duration-200 ${mobileOpen ? "opacity-0" : ""}`} />
+              <span className={`block h-[1.5px] w-4 bg-fg transition-all duration-300 origin-center ${mobileOpen ? "-translate-y-[5.5px] -rotate-45" : ""}`} />
             </span>
           </button>
         )}
 
-        {/* Section indicator dots (collapsed state) */}
-        <div className={`flex items-center gap-1 transition-all duration-300 ${
-          expanded ? "ml-0 max-w-0 opacity-0 overflow-hidden" : "ml-2 max-w-[4rem] opacity-100"
-        }`}>
-          {NAV.map((_, i) => (
-            <span
-              key={i}
-              className={`inline-block h-1 rounded-full transition-all duration-300 ${
-                active === i ? "w-3 bg-accent" : "w-1 bg-fg-faint"
-              }`}
-            />
-          ))}
-        </div>
+        {/* Section indicator dots (desktop collapsed only) */}
+        {!isMobile && (
+          <div className={`flex items-center gap-1 transition-all duration-300 ${
+            expanded ? "ml-0 max-w-0 opacity-0 overflow-hidden" : "ml-2 max-w-[4rem] opacity-100"
+          }`}>
+            {NAV.map((_, i) => (
+              <span
+                key={i}
+                className={`inline-block h-1 rounded-full transition-all duration-300 ${
+                  active === i ? "w-3 bg-accent" : "w-1 bg-fg-faint"
+                }`}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Mobile dropdown menu */}
+      {/* Mobile dropdown */}
       {isMobile && (
         <div
-          ref={mobileMenuRef}
-          className="pointer-events-auto mt-2 overflow-hidden rounded-2xl border border-line-strong bg-bg/95 opacity-0 backdrop-blur-xl"
-          style={{ height: 0 }}
+          className={`pointer-events-auto mt-2 w-[calc(100%-2rem)] max-w-xs overflow-hidden rounded-2xl border border-line-strong bg-bg/95 backdrop-blur-xl transition-all duration-300 ease-out ${
+            mobileOpen ? "max-h-[20rem] opacity-100 translate-y-0" : "max-h-0 opacity-0 -translate-y-2 pointer-events-none"
+          }`}
         >
-          <nav className="flex flex-col gap-1 px-5 py-4">
+          <nav className="flex flex-col gap-1 px-4 py-3">
             {NAV.map((item, i) => (
               <a
                 key={item.href}
