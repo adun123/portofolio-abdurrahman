@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import { Space_Grotesk, Bricolage_Grotesque, Fraunces } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",
 });
 
-const instrumentSerif = Instrument_Serif({
+const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
-  weight: "400",
+  display: "swap",
+  variable: "--font-display",
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
   style: ["normal", "italic"],
   display: "swap",
   variable: "--font-serif",
@@ -19,7 +24,7 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   title: "Abdurrahman — AI-Powered Full Stack Engineer",
   description:
-    "Abdurrahman is an AI-powered full stack engineer building intelligent systems and digital experiences — OCR pipelines, document intelligence, LLM workflows, and enterprise web products.",
+    "Abdurrahman is an AI-powered full stack engineer building intelligent systems and digital experiences  OCR pipelines, document intelligence, LLM workflows, and enterprise web products.",
   metadataBase: new URL("https://abdurrahman.dev"),
   openGraph: {
     title: "Abdurrahman — AI-Powered Full Stack Engineer",
@@ -37,7 +42,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${instrumentSerif.variable}`}
+      className={`${spaceGrotesk.variable} ${bricolage.variable} ${fraunces.variable}`}
       suppressHydrationWarning
     >
       <body className="bg-bg text-fg antialiased selection:bg-fg/90 selection:text-bg">
